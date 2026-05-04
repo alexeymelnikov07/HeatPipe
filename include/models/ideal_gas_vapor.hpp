@@ -6,18 +6,16 @@
 
 // Libraries
 #include <string>
+#include <vector>
 
 // ----------------------------------------
 
 class IdealGasVapor: VaporModel{
 public:
-    IdealGasVapor(double R, double eta);
+    IdealGasVapor() {}
 
-    // Рассчитать плотность пара [кг/м^3]
-    double density(double P, double T) const override;
-
-    // Расчитать градиент давления пара по формуле Пуазейля [Па/м]
-    double pressureGradient(double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe, const Geomety& geometry) const override;
+    // Расчитать градиент давления пара вдоль трубки [Па/м]
+    double pressureGradient(std::vector<Node> node, double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe) const override;
     
     std::string name() const override {return "Ideal Gas";}
 };

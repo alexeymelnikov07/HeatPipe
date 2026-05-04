@@ -16,5 +16,5 @@ public:
     // Градиент давления в адиабатической зоне фитиля по закону Дарси [Па/м]
     double pressureGradient(double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe) const override;
 
-    std::string name() const override {return "Darcy";}
+    std::string name() const override {return "Darcy flow";}
 };

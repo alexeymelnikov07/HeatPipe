@@ -12,10 +12,10 @@
 class ConductionHeat : public HeatTransfer {
 public:
     // Тепловой поток через стенку и фитиль с жидкостью [Вт/м^2]
-    double heatFlux(double T_out, double T_vap, const Geomety& geomety, const HeatPipe& pipe) const override;
+    double heatFlux(double T_out, double T_vap, const HeatPipe& pipe) const override;
 
     // Массовый расход рабочего тела [кг/с]
-    double massFlowRate(double heatFlux, const WorkingFluid& fluid, const Geomety& geometry) const override;
+    double massFlowRate(double heatFlux, const WorkingFluid& fluid) const override;
 
     std::string name() const override {return "Fourier-Conduction";}
 };

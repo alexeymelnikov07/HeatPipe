@@ -4,20 +4,18 @@
 // Headers
 #include "../core/working_fluid.hpp"
 #include "../core/heatpipe_params.hpp"
-#include "../core/geometry.hpp"
+#include "../core/node.hpp"
 
 // Libraries
 #include <string>
+#include <vector>
 
 // ----------------------------------------
 
 class VaporModel {
 public:
-    // Рассчитать плотность пара [кг/м^3]
-    virtual double density(double P, double T) const = 0;
-
-    // Расчитать градиент давления пара [Па/м]
-    virtual double pressureGradient(double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe, const Geomety& geometry) const = 0;
+    // Расчитать градиент давления(положителен, от конденсатора до испарителя) пара вдоль трубки [Па/м]
+    virtual double pressureGradient(std::vector<Node> node, double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe) const = 0;
 
     // Обозначение используемой модели
     virtual std::string name() const = 0;

@@ -7,6 +7,7 @@
 
 // Libraries
 #include <string>
+#include <iostream>
 
 // ----------------------------------------
 
@@ -16,8 +17,12 @@ public:
     virtual double pressureGradient(double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe) const = 0;
     
     // Предельное капиллярное давление по формуле Лапласа [Па]
-    double capillaryMaxPressure(const WorkingFluid& fluid, const HeatPipe& pipe) const;
+    double capillaryMaxPressure(double P, const WorkingFluid& fluid, const HeatPipe& pipe);
 
     // Обозначение используемой модели
     virtual std::string name() const = 0;
+};
+
+double LiquidTransport::capillaryMaxPressure(double P, const WorkingFluid& fluid, const HeatPipe& pipe){
+    return 2*fluid.sigma(P) / pipe.wickEffectiveRadius;
 };
