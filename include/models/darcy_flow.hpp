@@ -9,14 +9,12 @@
 
 // ----------------------------------------
 
-class DarcyFlow : public LiquidTransport {
-    double surfaceTension;  // коэффициент поверхностного натяжения [Н/м]
-    
+class DarcyFlow : public LiquidTransport {    
 public:
     DarcyFlow(double sigma);
     
-    double massFlowRate() const override;
-    double capillaryPressure() const override;
+    // Градиент давления в адиабатической зоне фитиля по закону Дарси [Па/м]
+    double pressureGradient(double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe) const override;
 
     std::string name() const override {return "Darcy";}
 };

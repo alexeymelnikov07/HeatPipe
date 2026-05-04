@@ -1,5 +1,5 @@
 // Геометрия трубки
-//#pragma once
+#pragma once
 // --------------- INCLUDES ----------------
 // Headers
 
@@ -26,5 +26,5 @@ struct Geomety {
             vaporCoreRadius(vapCR), wickThickness(wickT), wallThickness(wallT),
             wickCrossSection(std::numbers::pi * ( (vapCR+wickT)*(vapCR+wickT) - vapCR*vapCR )),
             vaporCoreArea(std::numbers::pi * vapCR*vapCR), adiabaticLength(totL-evL-conL) {}
-    Geomety(): Geomety(0, 0, 0, 0, 0, 0) {}
+    // Geomety(): Geomety(0, 0, 0, 0, 0, 0) {}
 };

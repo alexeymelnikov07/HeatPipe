@@ -1,0 +1,5 @@
+/home/user/HeatPipe/build/CMakeFiles/edit_cache.dir
+/home/user/HeatPipe/build/CMakeFiles/rebuild_cache.dir
+/home/user/HeatPipe/build/src/CMakeFiles/HeatPipe.dir
+/home/user/HeatPipe/build/src/CMakeFiles/edit_cache.dir
+/home/user/HeatPipe/build/src/CMakeFiles/rebuild_cache.dir

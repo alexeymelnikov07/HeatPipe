@@ -2,7 +2,9 @@
 #pragma once
 // --------------- INCLUDES ----------------
 // Headers
-#include "../core/node.hpp"
+#include "../core/working_fluid.hpp"
+#include "../core/heatpipe_params.hpp"
+#include "../core/geometry.hpp"
 
 // Libraries
 #include <string>
@@ -10,13 +12,12 @@
 // ----------------------------------------
 
 class VaporModel {
-/* Нужно обдумать совместимость для разных моделей газа */
 public:
     // Рассчитать плотность пара [кг/м^3]
-    virtual double density() const = 0;
+    virtual double density(double P, double T) const = 0;
 
-    // Расчитать градиент давления в узлах [Па/м]
-    virtual double pressureGradient() const = 0;
+    // Расчитать градиент давления пара [Па/м]
+    virtual double pressureGradient(double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe, const Geomety& geometry) const = 0;
 
     // Обозначение используемой модели
     virtual std::string name() const = 0;

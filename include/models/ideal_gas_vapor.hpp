@@ -10,13 +10,14 @@
 // ----------------------------------------
 
 class IdealGasVapor: VaporModel{
-    const double R_gas;         // Универсальная газовая постоянная [Дж/(кг*К)]
-    const double Viscosity;     // Динамическая вязкость [Па*с]
 public:
     IdealGasVapor(double R, double eta);
 
-    double density() const override;
-    double pressureGradient() const override;
+    // Рассчитать плотность пара [кг/м^3]
+    double density(double P, double T) const override;
+
+    // Расчитать градиент давления пара по формуле Пуазейля [Па/м]
+    double pressureGradient(double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe, const Geomety& geometry) const override;
     
     std::string name() const override {return "Ideal Gas";}
 };

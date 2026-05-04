@@ -2,6 +2,8 @@
 #pragma once
 // --------------- INCLUDES ----------------
 // Headers
+#include "../core/heatpipe_params.hpp"
+#include "../core/working_fluid.hpp"
 
 // Libraries
 #include <string>
@@ -9,13 +11,12 @@
 // ----------------------------------------
 
 class LiquidTransport {
-/* Нужно обдумать совместимость для разных моделей газа */
 public:
-    // Массовый расход жидкости через фитиль [кг/с]
-    virtual double massFlowRate() const = 0;
+    // Градиент давления в адиабатической зоне фитиля [Па/м]
+    virtual double pressureGradient(double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe) const = 0;
     
-    // Максимальное капиллярное давление (предел)
-    virtual double capillaryPressure() const = 0;
+    // Предельное капиллярное давление по формуле Лапласа [Па]
+    double capillaryMaxPressure(const WorkingFluid& fluid, const HeatPipe& pipe) const;
 
     // Обозначение используемой модели
     virtual std::string name() const = 0;
