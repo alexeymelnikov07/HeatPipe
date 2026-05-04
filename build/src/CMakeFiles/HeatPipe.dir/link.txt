@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/HeatPipe.dir/main.cpp.o -o HeatPipe 
