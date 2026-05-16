@@ -8,7 +8,6 @@
 
 // Libraries
 #include <string>
-#include <iostream>
 
 // ----------------------------------------
 

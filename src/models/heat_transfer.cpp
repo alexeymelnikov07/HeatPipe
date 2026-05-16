@@ -9,7 +9,7 @@
 
 // ----------------------------------------
 
-// Тепловой поток через стенку и фитиль с жидкостью(цилиндрический закон Фурье) [Вт/м^2]
+// Тепловая мощность через стенку и фитиль с жидкостью(цилиндрический закон Фурье) [Вт]
 double HeatTransfer::heatFlux(double T_out, double T_vap, double l, const HeatPipe& pipe){
     double P_vap = WorkingFluid::Psat(T_vap);
     double k_liq = WorkingFluid::tcondLiq(P_vap);

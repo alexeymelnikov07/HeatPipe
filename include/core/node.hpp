@@ -2,9 +2,9 @@
 #pragma once
 // --------------- INCLUDES ----------------
 // Headers
-
+#include "./heatpipe_params.hpp"
 // Libraries
-
+#include <vector>
 // ----------------------------------------
 
 struct Node {
@@ -35,3 +35,5 @@ struct Node {
         zone = Zone::UNDEFINED;
     }
 };
+
+void createMesh(std::vector<Node>& node, HeatPipe& pipe, int cels);

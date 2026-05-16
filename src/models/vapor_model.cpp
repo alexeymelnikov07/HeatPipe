@@ -5,6 +5,7 @@
 #include "../../include/utils/constants.hpp"
 
 // Libraries
+#include <iostream>
 
 // ----------------------------------------
 
@@ -24,17 +25,16 @@ double VaporModel::Poiseuille(double P0, double l, double massFlowRate, const He
 // Заполнить градиент давления пара в сетке (начиная с испарителя)
 void VaporModel::calcGradient(std::vector<Node>& node, double P_evap, double massFlowRate, const HeatPipe& pipe){
     for (auto it = node.begin(); it != node.end(); ++it){
-        Node cell = *it;
+        Node& cell = *it;
         if (cell.zone == Node::Zone::CONDENSER){
             continue;
         }
 
-        Node cellNext = *(it+1);
+        Node& cellNext = *(it+1);
 
         if (cell.zone == Node::Zone::EVAPORATOR){
             cell.P_vapor = P_evap;
             cell.T_vapor = WorkingFluid::Tsat(P_evap);
-            continue;
         }
 
         double l; // Длина которую прошёл пар
@@ -49,7 +49,7 @@ void VaporModel::calcGradient(std::vector<Node>& node, double P_evap, double mas
     }
 }
 
-// Расчитать число Рейнольдса [-]
+// Расcчитать число Рейнольдса [-]
 double VaporModel::Reynolds(double P0, double massFlowRate, const HeatPipe& pipe){
     if (P0 < 612) {
         std::cout<<"In VaporModel::Reynolds P0 less than 612 Pa"<<std::endl;
@@ -66,7 +66,7 @@ double VaporModel::Reynolds(double P0, double massFlowRate, const HeatPipe& pipe
 // Заполнить числа Рейнольдса в сетке
 void VaporModel::fillReynolds(std::vector<Node>& node, double P_evap, double massFlowRate, const HeatPipe& pipe){
     for (auto it = node.begin(); it != node.end(); ++it){
-        Node cell = *it;
+        Node& cell = *it;
         double Reynolds = VaporModel::Reynolds(cell.P_vapor, massFlowRate, pipe);
         cell.Reynolds = Reynolds;
     }

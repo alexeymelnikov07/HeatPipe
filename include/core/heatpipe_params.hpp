@@ -58,5 +58,5 @@ struct HeatPipe {
         
         wickCrossSection(constants::pi * ( (vaporCoreRadius+wickThickness)*(vaporCoreRadius+wickThickness) - vaporCoreRadius*vaporCoreRadius )),
         vaporCoreArea(constants::pi * vaporCoreRadius*vaporCoreRadius),
-        adiabaticLength(totalLength-condenserLength-condenserLength) {}
+        adiabaticLength(totalLength-evaporatorLength-condenserLength) {}
 };

@@ -20,7 +20,7 @@ public:
     // Заполнить градиент давления пара в сетке (начиная с испарителя)
     static void calcGradient(std::vector<Node>& node, double P_evap, double massFlowRate, const HeatPipe& pipe);
 
-    // Расчитать число Рейнольдса [-]
+    // Расcчитать число Рейнольдса [-]
     static double Reynolds(double P0, double massFlowRate, const HeatPipe& pipe);
 
     // Заполнить числа Рейнольдса в сетке

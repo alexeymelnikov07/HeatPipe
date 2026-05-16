@@ -5,6 +5,7 @@
 #include "../../include/utils/constants.hpp"
 
 // Libraries
+#include <iostream>
 
 // ----------------------------------------
 
@@ -24,13 +25,13 @@ double LiquidTransport::Darcy(double P0, double l, double massFlowRate, const He
 // Заполнить градиент давления жидкости в сетке
 void LiquidTransport::calcGradient(std::vector<Node>& node, double P_cond, double massFlowRate, const HeatPipe& pipe){
     for (auto it = node.rbegin(); it != node.rend(); ++it){
-        Node cell = *it;
+        Node& cell = *it;
         
         if (cell.zone == Node::Zone::EVAPORATOR){
             continue;
         }
 
-        Node cellNext = *(it+1);
+        Node& cellNext = *(it+1);
 
         if (cell.zone == Node::Zone::CONDENSER){
             cell.P_liquid = P_cond;
