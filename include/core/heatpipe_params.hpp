@@ -2,9 +2,10 @@
 #pragma once
 // --------------- INCLUDES ----------------
 // Headers
+#include "../utils/constants.hpp"
 
 // Libraries
-#include <numbers>
+
 // ----------------------------------------
 
 struct HeatPipe {
@@ -23,6 +24,7 @@ struct HeatPipe {
     // --------------------------------
     // ------------ Физические свойства ----------
     const double wickPermeability;          // Проницаемость материала фитиля [м^2]
+    const double wickPorosity;              // Пористость материала фитиля(доля пустот) [м^3/м^3]
     const double wickEffectiveRadius;       // Радиус эквивалентного капиляра с одним мениском [м]
     const double wickThermalConductivity;   // Теплопроводность материала фитиля [Дж/(м*с*К)]
 
@@ -37,6 +39,7 @@ struct HeatPipe {
         double wallThickness,
 
         double wickPermeability,
+        double wickPorosity,
         double wickEffectiveRadius,
         double wickThermalConductivity,
         double pipeThermalConductivity
@@ -48,11 +51,12 @@ struct HeatPipe {
         wallThickness(wallThickness),
         
         wickPermeability(wickPermeability),
+        wickPorosity(wickPorosity),
         wickEffectiveRadius(wickEffectiveRadius),
         wickThermalConductivity(wickThermalConductivity),
         pipeThermalConductivity(pipeThermalConductivity),
         
-        wickCrossSection(std::numbers::pi * ( (vaporCoreRadius+wickThickness)*(vaporCoreRadius+wickThickness) - vaporCoreRadius*vaporCoreRadius )),
-        vaporCoreArea(std::numbers::pi * vaporCoreRadius*vaporCoreRadius),
+        wickCrossSection(constants::pi * ( (vaporCoreRadius+wickThickness)*(vaporCoreRadius+wickThickness) - vaporCoreRadius*vaporCoreRadius )),
+        vaporCoreArea(constants::pi * vaporCoreRadius*vaporCoreRadius),
         adiabaticLength(totalLength-condenserLength-condenserLength) {}
 };

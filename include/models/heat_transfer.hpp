@@ -12,12 +12,10 @@
 
 class HeatTransfer {
 public:
-    // Тепловой поток через стенку и фитиль с жидкостью [Вт/м^2]
-    virtual double heatFlux(double T_out, double T_vap, const HeatPipe& pipe) const = 0;
+    // Тепловой поток через стенку и фитиль с жидкостью(цилиндрический закон Фурье) [Вт/м^2]
+    static double heatFlux(double T_out, double T_vap, double l, const HeatPipe& pipe);
 
     // Массовый расход рабочего тела [кг/с]
-    virtual double massFlowRate(double heatFlux, const WorkingFluid& fluid) const = 0;
+    static double massFlowRate(double T_vap, double heatFlux);
 
-    // Обозначение используемой модели
-    virtual std::string name() const = 0;
 };

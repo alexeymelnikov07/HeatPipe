@@ -14,9 +14,16 @@
 
 class VaporModel {
 public:
-    // Расчитать градиент давления(положителен, от конденсатора до испарителя) пара вдоль трубки [Па/м]
-    virtual double pressureGradient(std::vector<Node> node, double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe) const = 0;
+    // Формула Пуазейля [Па]
+    static double Poiseuille(double P0, double l, double massFlowRate, const HeatPipe& pipe);
 
-    // Обозначение используемой модели
-    virtual std::string name() const = 0;
+    // Заполнить градиент давления пара в сетке (начиная с испарителя)
+    static void calcGradient(std::vector<Node>& node, double P_evap, double massFlowRate, const HeatPipe& pipe);
+
+    // Расчитать число Рейнольдса [-]
+    static double Reynolds(double P0, double massFlowRate, const HeatPipe& pipe);
+
+    // Заполнить числа Рейнольдса в сетке
+    static void fillReynolds(std::vector<Node>& node, double P_evap, double massFlowRate, const HeatPipe& pipe);
+
 };

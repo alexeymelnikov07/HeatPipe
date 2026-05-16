@@ -6,12 +6,14 @@
 // Libraries
 #include <map>
 #include <string>
-#include "IF97.h"
+#include "../../externals/IF97/IF97.h"
 
 // ----------------------------------------
 
 class WorkingFluid {
 public:
+    WorkingFluid() {}
+
     // Давление насыщения по температуре [Па]
     static double Psat(double T) {return IF97::psat97(T);}
     // Температура насыщения по давлению [К]

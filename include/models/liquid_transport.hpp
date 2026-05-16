@@ -4,6 +4,7 @@
 // Headers
 #include "../core/heatpipe_params.hpp"
 #include "../core/working_fluid.hpp"
+#include "../core/node.hpp"
 
 // Libraries
 #include <string>
@@ -13,16 +14,13 @@
 
 class LiquidTransport {
 public:
-    // Градиент давления в адиабатической зоне фитиля [Па/м]
-    virtual double pressureGradient(double massFlowRate, const WorkingFluid& fluid, const HeatPipe& pipe) const = 0;
+    // Закон Дарси [Па](Разность P0 - P(x+l))
+    static double Darcy(double P0, double l, double massFlowRate, const HeatPipe& pipe);
+
+    // Заполнить градиент давления жидкости в сетке
+    static void calcGradient(std::vector<Node>& node, double P_cond, double massFlowRate, const HeatPipe& pipe);
     
     // Предельное капиллярное давление по формуле Лапласа [Па]
-    double capillaryMaxPressure(double P, const WorkingFluid& fluid, const HeatPipe& pipe);
+    static double capillaryMaxPressure(double T_evap, const HeatPipe& pipe);
 
-    // Обозначение используемой модели
-    virtual std::string name() const = 0;
-};
-
-double LiquidTransport::capillaryMaxPressure(double P, const WorkingFluid& fluid, const HeatPipe& pipe){
-    return 2*fluid.sigma(P) / pipe.wickEffectiveRadius;
 };
