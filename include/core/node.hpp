@@ -19,13 +19,6 @@ struct Node {
     enum class Zone { EVAPORATOR, ADIABATIC, CONDENSER, UNDEFINED };
     Zone zone;
 
-    bool operator== (const Node& node) const {
-        return x == node.x && zone == node.zone;
-    }
-
-    bool operator< (const Node& node) const {
-        return x<node.x;
-    }
     Node(double x): x(x) {
         P_vapor=0;
         T_vapor=0;
@@ -33,6 +26,14 @@ struct Node {
         P_liquid=0;
         Reynolds=0;
         zone = Zone::UNDEFINED;
+    }
+
+    bool operator== (const Node& node) const {
+        return x == node.x && zone == node.zone;
+    }
+
+    bool operator< (const Node& node) const {
+        return x<node.x;
     }
 };
 

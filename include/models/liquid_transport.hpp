@@ -12,10 +12,11 @@
 // ----------------------------------------
 
 class LiquidTransport {
-public:
+private:
     // Закон Дарси [Па](Разность P0 - P(x+l))
     static double Darcy(double P0, double l, double massFlowRate, const HeatPipe& pipe);
 
+public:
     // Заполнить градиент давления жидкости в сетке
     static void calcGradient(std::vector<Node>& node, double P_cond, double massFlowRate, const HeatPipe& pipe);
     

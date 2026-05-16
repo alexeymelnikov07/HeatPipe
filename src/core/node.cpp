@@ -22,4 +22,6 @@ void createMesh(std::vector<Node>& node, HeatPipe& pipe, int cels){
     Node cond(pipe.evaporatorLength + pipe.adiabaticLength);
     cond.zone = Node::Zone::CONDENSER;
     node.push_back(cond);
+    
+    node.shrink_to_fit();
 }
