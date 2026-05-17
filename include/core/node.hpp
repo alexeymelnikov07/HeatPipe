@@ -11,7 +11,7 @@ struct Node {
     const double x;     // Позиция вдоль оси [м]
     double T_vapor;     // Температура пара [K]
     double P_vapor;     // Давление пара [Па]
-    double T_liquid;    // Температура жидкости в фитиле [K] (ей равна температура стенки)
+    double T_liquid;    // Температура жидкости в фитиле [K] (в адиабатике T_liquid = T_vapor)
     double P_liquid;    // Давление жидкости в фитиле [Па]
     double Reynolds;    // Число Рейнольдса
     
@@ -37,4 +37,5 @@ struct Node {
     }
 };
 
-void createMesh(std::vector<Node>& node, HeatPipe& pipe, int cels);
+// Узлы: испаритель (x=0), адиабатика, конденсатор (x = L_evap + L_adiab)
+void createMesh(std::vector<Node>& node, HeatPipe& pipe, int cells);

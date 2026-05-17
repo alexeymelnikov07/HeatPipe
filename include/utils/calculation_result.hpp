@@ -1,4 +1,4 @@
-// Структура результатов попытки расчёта термотрубки
+// Структура результатов одной попытки расчёта
 #pragma once
 // --------------- INCLUDES ----------------
 // Headers
@@ -13,31 +13,36 @@ namespace calcRes_doubleComp {
 }
 
 struct calculationResult {
-    const double T_evap;        // Заданная температура пара в испарителе
+    const double T_evap;        // Пробная температура насыщения пара в испарителе [K]
 
-    // Расчёты пара
-    double T_cond;              // Найденая температура пара в конденсаторе
-    double heatFlux_evap;       // Тепловая мощность через стенку в испарителе
-    double heatFlux_cond;       // Тепловая мощность через стенку в конденсаторе
-    double massFlowRate;        // Массовый расход
-    bool isVaporOkay;           // Результат расчёта пара
+    // Пар
+    double T_cond;              // Температура насыщения пара у узла конденсатора [K]
+    double heatFlux_evap;       // Тепловая мощность в зоне испарения [Вт]
+    double heatFlux_cond;       // Тепловая мощность в зоне конденсации [Вт]
+    double massFlowRate;        // Массовый расход [кг/с]
+    bool isVaporOkay;           // Прошла проверку теплового баланса и T_vap > T_out
 
-    // Расчёты жидкости
-    double dP_liq;              // Перепад давления в жидкости
-    double dP_maxCapilar;       // Капилярный предел
-    bool isLiquidOkay;          // Результат расчёта жидкости
+    // Жидкость
+    double dP_liq;              // P_liq(конденсатор) - P_liq(испаритель) [Па], вдоль потока к меньшему p
+    double dP_maxCapillary;     // Допустимый капиллярный перепад по Лапласу [Па]
+    bool isLiquidOkay;          // dP_liq в пределах капиллярного предела
 
-    calculationResult(double T_evap): T_evap(T_evap) {
-        T_cond = 0;
-        heatFlux_evap = 0;
-        heatFlux_cond = 0;
+    explicit calculationResult(double T_evap)
+        : T_evap(T_evap),
+          T_cond(0),
+          heatFlux_evap(0),
+          heatFlux_cond(0),
+          massFlowRate(0),
+          isVaporOkay(false),
+          dP_liq(0),
+          dP_maxCapillary(0),
+          isLiquidOkay(false) {}
+
+    bool operator==(const calculationResult& other) const {
+        return std::abs(T_evap - other.T_evap) < calcRes_doubleComp::doubleComp;
     }
 
-    bool operator== (const calculationResult res) const {
-        return std::abs(T_evap - res.T_evap) < calcRes_doubleComp::doubleComp;
-    }
-
-    bool operator< (const calculationResult res) const {
-        return T_evap < res.T_evap;
+    bool operator<(const calculationResult& other) const {
+        return T_evap < other.T_evap;
     }
 };

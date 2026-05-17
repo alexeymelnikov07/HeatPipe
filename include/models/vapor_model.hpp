@@ -17,7 +17,7 @@ private:
     // Формула Пуазейля [Па]
     static double Poiseuille(double P0, double l, double massFlowRate, const HeatPipe& pipe);
 
-    // Расcчитать число Рейнольдса [-]
+    // Рассчитать число Рейнольдса [-]
     static double Reynolds(double P0, double massFlowRate, const HeatPipe& pipe);
     
 public:

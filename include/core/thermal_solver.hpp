@@ -6,8 +6,7 @@
 #include "./node.hpp"
 #include "./working_fluid.hpp"
 #include "../boundary/boundary_condition.hpp"
-#include "../utils/constants.hpp"
-#include "../utils//calculation_result.hpp"
+#include "../utils/calculation_result.hpp"
 
 #include "../models/heat_transfer.hpp"
 #include "../models/liquid_transport.hpp"
@@ -25,14 +24,19 @@ private:
     HeatPipe Pipe;
     BoundaryConditions BC;
 
-public:
-    // Запуск расчёта пара: испаритель -> градиент пара -> конденсатор, с записью результата
+    // Одна попытка: испаритель -> Пуазейль по сетке -> конденсатор
     void launchVaporAttempt(double T_evap, calculationResult& res);
 
-    // Запуск расчёта жидкости: закон Дарси -> капилярный предел, с записью результата
+    // Одна попытка: Дарси от узла конденсатора назад, перепад жидкости и капиллярный предел
     void launchLiquidAttempt(double T_evap, calculationResult& res);
 
-    // Поиск значения температуры пара в испарителе с заданным шагом
-    std::array<double, 2> temperatureGuess(double step, std::array<double, 2> borders,  std::vector<calculationResult>& calcResults);
+public:
+    ThermalSolver(const HeatPipe& pipe, const BoundaryConditions& bc, int meshCells);
 
+    // Перебор T_vap,e с шагом step в интервале borders; накопление попыток в calcResults
+    std::array<double, 2> temperatureGuess(
+        double step,
+        std::array<double, 2> borders,
+        std::vector<calculationResult>& calcResults
+    );
 };

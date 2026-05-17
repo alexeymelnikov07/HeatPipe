@@ -7,13 +7,13 @@
 
 // ----------------------------------------
 
-void createMesh(std::vector<Node>& node, HeatPipe& pipe, int cels){
+void createMesh(std::vector<Node>& node, HeatPipe& pipe, int cells) {
     Node evap(0);
     evap.zone = Node::Zone::EVAPORATOR;
     node.push_back(evap);
     
-    double dx = pipe.adiabaticLength / cels;
-    for (int i=0; i<cels; i++){
+    const double dx = pipe.adiabaticLength / cells;
+    for (int i = 0; i < cells; ++i) {
         Node cell(pipe.evaporatorLength + i*dx);
         cell.zone = Node::Zone::ADIABATIC;
         node.push_back(cell);
